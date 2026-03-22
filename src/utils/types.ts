@@ -9,7 +9,9 @@ export interface TotalData {
 }
 
 export interface Ride {
+  id: number;
   service: "uber" | "lyft";
+  start_time: Date;
   account: string;
   fare: number;
   fee: number;

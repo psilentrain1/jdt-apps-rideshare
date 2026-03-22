@@ -7,7 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./components/ui/select";
-import UberLogo from "./assets/uber-logo-black-transparent.png";
+import UberLogo from "./assets/uber-logo-white-transparent.png";
 import LyftLogo from "./assets/Lyft-Logo.wine.png";
 import type { TotalData } from "./utils/types";
 
@@ -72,7 +72,7 @@ export default function Home() {
         <section className="grid grid-cols-2 gap-8 w-full">
           <div className="flex flex-col gap-8 border-r border-r-slate-400">
             <div className="w-full flex flex-row justify-center items-center">
-              <img className="h-40 invert" src={UberLogo} alt="" />
+              <img className="h-40" src={UberLogo} alt="" />
             </div>
             <div className="flex flex-col gap-4">
               <div className="flex flex-col">
