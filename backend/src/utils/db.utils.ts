@@ -5,6 +5,8 @@ import type { Ride } from "../../../src/utils/types";
 const dbLoc = "./rideshare.db";
 const db = new sqlite(dbLoc);
 
+// TODO: Add JSDoc
+
 export function dbStartupCheck() {
   console.log("Checking for database file...");
   const file = fs.readFileSync(dbLoc);
