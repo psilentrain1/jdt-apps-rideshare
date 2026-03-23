@@ -16,4 +16,6 @@ export interface Ride {
   fare: number;
   fee: number;
   tip: number;
+  modified_at?: Date;
+  deleted_at?: Date;
 }
