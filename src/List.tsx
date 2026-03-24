@@ -16,6 +16,7 @@ import type { Ride } from "./utils/types";
 // TODO: Format currency correctly
 // TODO: Fix table header style
 // TODO: Add ability to edit and delete rides
+// TODO: Format dates
 export default function List() {
   const [rideList, setRideList] = useState<Ride[]>([]);
 
@@ -49,7 +50,7 @@ export default function List() {
                   src={ride.service == "uber" ? UberLogo : LyftLogo}
                 />
               </TableCell>
-              <TableCell>{ride.start_time.toDateString()}</TableCell>
+              <TableCell>{ride.start_time}</TableCell>
               <TableCell>{ride.fare}</TableCell>
               <TableCell>{ride.fee}</TableCell>
               <TableCell>{ride.tip}</TableCell>

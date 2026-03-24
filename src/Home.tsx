@@ -9,16 +9,18 @@ import {
 } from "./components/ui/select";
 import UberLogo from "./assets/uber-logo-white-transparent.png";
 import LyftLogo from "./assets/Lyft-Logo.wine.png";
-import type { TotalData } from "./utils/types";
+import type { TotalData, Month } from "./utils/types";
+import { useGetDashData } from "./hooks/useGetDashData";
 
 const dates = [
-  { label: "December 2025", value: 20251201 },
-  { label: "January 2026", value: 20260101 },
-  { label: "February 2026", value: 20260201 },
-  { label: "March 2026", value: 20260301 },
+  { label: "December 2025", value: 202512 },
+  { label: "January 2026", value: 202601 },
+  { label: "February 2026", value: 202602 },
+  { label: "March 2026", value: 202603 },
 ];
 
 export default function Home() {
+  // const [monthList, setMonthList] = useState<Month[]>([]);
   const [selectedMonth, setSelectedMonth] = useState<number | null>();
   const [monthTotals, setMonthTotals] = useState<TotalData>({
     uberFare: null,
@@ -29,6 +31,8 @@ export default function Home() {
     totalTips: null,
     total: null,
   });
+
+  const [monthList, totals] = useGetDashData();
 
   return (
     <>

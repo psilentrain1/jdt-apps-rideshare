@@ -28,17 +28,26 @@ export async function getOneRide(id: number): Promise<Ride> {
 }
 
 export async function addRide(ride: Ride): Promise<boolean> {
-  const response = await fetch(`${API_ENDPOINT}/rides/add`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(ride),
-  });
-  if (!response.ok) {
-    toast.error("There was an error adding the ride.");
-    return false;
-  } else {
+  console.log("Adding ride");
+  try {
+    const response = await fetch(`${API_ENDPOINT}/rides/add`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(ride),
+    });
+
+    if (!response.ok) {
+      console.log("Error adding ride");
+      toast.error("There was an error adding the ride.");
+      return false;
+    }
+
     toast.success("Successfully added ride.");
     return true;
+  } catch (error) {
+    console.error(`Fetch threw: ${error}`);
+    toast.error("There was an error adding the ride.");
+    return false;
   }
 }
 

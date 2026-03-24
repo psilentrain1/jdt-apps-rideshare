@@ -19,9 +19,7 @@ import { addRide } from "../utils/db.utils";
 
 const formSchema = z.object({
   service: z.literal(["uber", "lyft"]),
-  start_time: z.date({
-    error: (issue) => (issue.input === undefined ? "Required" : "Invalid date"),
-  }),
+  start_time: z.string(),
   account: z.literal(["sofi", "chime", "cashapp"]),
   fare: z.coerce.number().nonnegative(),
   fee: z.coerce.number().nonnegative(),
@@ -36,7 +34,7 @@ export default function NewRideForm() {
     resolver: zodResolver(formSchema) as Resolver<FormValues>,
     defaultValues: {
       service: undefined,
-      start_time: new Date(),
+      start_time: new Date().toISOString(),
       account: undefined,
       fare: 0,
       fee: 0,
@@ -76,7 +74,7 @@ export default function NewRideForm() {
   async function onSubmit(data: z.infer<typeof formSchema>) {
     const dataToSubmit: z.infer<typeof formSchema> = {
       ...data,
-      start_time: date,
+      start_time: date.toISOString(),
     };
     if (await addRide(dataToSubmit)) {
       form.reset();
@@ -128,7 +126,12 @@ export default function NewRideForm() {
                 </FieldLabel>
                 <Popover>
                   <TriggerWithSlot asChild>
-                    <Button variant="outline">Pick a date</Button>
+                    <Button variant="outline">
+                      {date.toLocaleDateString("en-US", {
+                        hour: "numeric",
+                        minute: "numeric",
+                      })}
+                    </Button>
                   </TriggerWithSlot>
                   <PopoverContent align="start">
                     <Card size="sm" className="mx-auto w-fit">
@@ -136,7 +139,7 @@ export default function NewRideForm() {
                         <Calendar
                           autoFocus
                           mode="single"
-                          defaultMonth={field.value}
+                          defaultMonth={new Date(field.value)}
                           selected={date}
                           onSelect={handleSelectDate}
                         />
