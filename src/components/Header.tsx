@@ -1,8 +1,10 @@
 import { NavLink } from "react-router";
+import { Toaster } from "react-hot-toast";
 
 export default function Header() {
   return (
     <>
+      <Toaster />
       <header className="flex flex-row justify-between py-4 px-12">
         <div className="text-4xl font-bold">Rideshare Expenses</div>
         <nav>

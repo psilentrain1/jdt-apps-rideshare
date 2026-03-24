@@ -9,7 +9,7 @@ export interface TotalData {
 }
 
 export interface Ride {
-  id: number;
+  id?: number;
   service: "uber" | "lyft";
   start_time: Date;
   account: "sofi" | "chime" | "cashapp";

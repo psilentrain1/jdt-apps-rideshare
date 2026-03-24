@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Controller, useForm } from "react-hook-form";
+import { Controller, useForm, type Resolver } from "react-hook-form";
 import * as z from "zod";
 import { Field, FieldError, FieldGroup, FieldLabel } from "./ui/field";
 import { Input } from "./ui/input";
@@ -15,27 +15,29 @@ import {
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { Calendar } from "./ui/calendar";
 import { Card, CardContent, CardFooter } from "./ui/card";
+import { addRide } from "../utils/db.utils";
 
 const formSchema = z.object({
-  service: z.literal(["uber", "lyft", ""]),
+  service: z.literal(["uber", "lyft"]),
   start_time: z.date({
     error: (issue) => (issue.input === undefined ? "Required" : "Invalid date"),
   }),
-  account: z.literal(["", "sofi", "chime", "cashapp"]),
+  account: z.literal(["sofi", "chime", "cashapp"]),
   fare: z.coerce.number().nonnegative(),
   fee: z.coerce.number().nonnegative(),
   tip: z.coerce.number().nonnegative(),
 });
 
+type FormValues = z.infer<typeof formSchema>;
+
 // TODO: Style form
-// TODO: Correct type errors
 export default function NewRideForm() {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<FormValues>({
+    resolver: zodResolver(formSchema) as Resolver<FormValues>,
     defaultValues: {
-      service: "",
+      service: undefined,
       start_time: new Date(),
-      account: "sofi",
+      account: undefined,
       fare: 0,
       fee: 0,
       tip: 0,
@@ -43,6 +45,12 @@ export default function NewRideForm() {
   });
 
   const [date, setDate] = useState<Date>(new Date());
+
+  const TriggerWithSlot = PopoverTrigger as React.ComponentType<
+    React.ComponentPropsWithoutRef<typeof PopoverTrigger> & {
+      asChild?: boolean;
+    }
+  >;
 
   function handleSelectDate(date: Date | undefined) {
     if (date) {
@@ -65,12 +73,15 @@ export default function NewRideForm() {
     });
   }
 
-  function onSubmit(data: z.infer<typeof formSchema>) {
+  async function onSubmit(data: z.infer<typeof formSchema>) {
     const dataToSubmit: z.infer<typeof formSchema> = {
       ...data,
       start_time: date,
     };
-    console.log(dataToSubmit);
+    if (await addRide(dataToSubmit)) {
+      form.reset();
+      setDate(new Date());
+    }
   }
 
   return (
@@ -116,9 +127,9 @@ export default function NewRideForm() {
                   Ride Start Time
                 </FieldLabel>
                 <Popover>
-                  <PopoverTrigger asChild>
+                  <TriggerWithSlot asChild>
                     <Button variant="outline">Pick a date</Button>
-                  </PopoverTrigger>
+                  </TriggerWithSlot>
                   <PopoverContent align="start">
                     <Card size="sm" className="mx-auto w-fit">
                       <CardContent>
@@ -171,7 +182,7 @@ export default function NewRideForm() {
                     id="ride-form-select-account"
                     aria-invalid={fieldState.invalid}
                   >
-                    <SelectValue placeholder="Select" />
+                    <SelectValue placeholder="Select an account." />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="sofi">SoFi</SelectItem>
