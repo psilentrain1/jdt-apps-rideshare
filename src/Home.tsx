@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   Select,
   SelectContent,
@@ -9,44 +9,26 @@ import {
 } from "./components/ui/select";
 import UberLogo from "./assets/uber-logo-white-transparent.png";
 import LyftLogo from "./assets/Lyft-Logo.wine.png";
-import type { TotalData, Month } from "./utils/types";
+// import type { TotalData, Month } from "./utils/types";
 import { useGetDashData } from "./hooks/useGetDashData";
 
-const dates = [
-  { label: "December 2025", value: 202512 },
-  { label: "January 2026", value: 202601 },
-  { label: "February 2026", value: 202602 },
-  { label: "March 2026", value: 202603 },
-];
-
 export default function Home() {
-  // const [monthList, setMonthList] = useState<Month[]>([]);
-  const [selectedMonth, setSelectedMonth] = useState<number | null>();
-  const [monthTotals, setMonthTotals] = useState<TotalData>({
-    uberFare: null,
-    uberTips: null,
-    lyftFare: null,
-    lyftTips: null,
-    totalFare: null,
-    totalTips: null,
-    total: null,
-  });
-
-  const [monthList, totals] = useGetDashData();
+  const [selectedMonth, setSelectedMonth] = useState<number | null>(null);
+  const { monthList, totals } = useGetDashData();
 
   return (
     <>
       <div className="flex flex-col gap-8">
         <section className="flex flex-row w-full justify-center">
-          <Select items={dates} onValueChange={setSelectedMonth}>
+          <Select items={monthList} onValueChange={setSelectedMonth}>
             <SelectTrigger className="w-45">
               <SelectValue placeholder="Select Month" />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
-                {dates.map((date) => (
-                  <SelectItem key={date.value} value={date.value}>
-                    {date.label}
+                {monthList.map((month) => (
+                  <SelectItem key={month.value} value={month.value}>
+                    {month.label}
                   </SelectItem>
                 ))}
               </SelectGroup>
@@ -57,19 +39,25 @@ export default function Home() {
           <div className="flex flex-col">
             <span className="text-slate-400 text-center text-3xl">Total:</span>
             <span className="font-bold text-6xl text-center">
-              ${monthTotals.total ? monthTotals.total : "-.--"}
+              ${selectedMonth !== null ? totals[selectedMonth].total : "-.--"}
             </span>
           </div>
           <div className="flex flex-col">
             <span className="text-slate-400 text-center text-xl">Fares:</span>
             <span className="text-4xl text-center">
-              ${monthTotals.totalFare ? monthTotals.totalFare : "-.--"}
+              $
+              {selectedMonth !== null
+                ? totals[selectedMonth].totalFare
+                : "-.--"}
             </span>
           </div>
           <div className="flex flex-col">
             <span className="text-slate-400 text-center text-xl">Tips:</span>
             <span className="text-4xl text-center">
-              ${monthTotals.totalTips ? monthTotals.totalTips : "-.--"}
+              $
+              {selectedMonth !== null
+                ? totals[selectedMonth].totalTips
+                : "-.--"}
             </span>
           </div>
         </section>
@@ -84,7 +72,10 @@ export default function Home() {
                   Fares:
                 </span>
                 <span className="text-4xl text-center">
-                  ${monthTotals.uberFare ? monthTotals.uberFare : "-.--"}
+                  $
+                  {selectedMonth !== null
+                    ? totals[selectedMonth].uberFare
+                    : "-.--"}
                 </span>
               </div>
               <div className="flex flex-col">
@@ -92,7 +83,10 @@ export default function Home() {
                   Tips:
                 </span>
                 <span className="text-4xl text-center">
-                  ${monthTotals.uberTips ? monthTotals.uberTips : "-.--"}
+                  $
+                  {selectedMonth !== null
+                    ? totals[selectedMonth].uberTips
+                    : "-.--"}
                 </span>
               </div>
             </div>
@@ -107,7 +101,10 @@ export default function Home() {
                   Fares:
                 </span>
                 <span className="text-4xl text-center">
-                  ${monthTotals.lyftFare ? monthTotals.lyftFare : "-.--"}
+                  $
+                  {selectedMonth !== null
+                    ? totals[selectedMonth].lyftFare
+                    : "-.--"}
                 </span>
               </div>
               <div className="flex flex-col">
@@ -115,7 +112,10 @@ export default function Home() {
                   Tips:
                 </span>
                 <span className="text-4xl text-center">
-                  ${monthTotals.lyftTips ? monthTotals.lyftTips : "-.--"}
+                  $
+                  {selectedMonth !== null
+                    ? totals[selectedMonth].lyftTips
+                    : "-.--"}
                 </span>
               </div>
             </div>
