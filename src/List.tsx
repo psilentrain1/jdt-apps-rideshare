@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import {
   Table,
@@ -7,34 +8,21 @@ import {
   TableHeader,
   TableRow,
 } from "./components/ui/table";
+import { getAllRides } from "./utils/db.utils";
 import UberLogo from "./assets/uber-logo-white-transparent.png";
 import LyftLogo from "./assets/Lyft-Logo.wine.png";
 import type { Ride } from "./utils/types";
 
-const testData: Ride[] = [
-  {
-    id: 1,
-    service: "uber",
-    start_time: new Date(),
-    fare: 32.99,
-    fee: 2.3,
-    tip: 3.0,
-    account: "sofi",
-  },
-  {
-    id: 2,
-    service: "lyft",
-    start_time: new Date(),
-    fare: 45.39,
-    fee: 1.99,
-    tip: 3.0,
-    account: "chime",
-  },
-];
-
 // TODO: Format currency correctly
-// TODO: Fix header style
+// TODO: Fix table header style
+// TODO: Add ability to edit and delete rides
 export default function List() {
+  const [rideList, setRideList] = useState<Ride[]>([]);
+
+  useEffect(() => {
+    getAllRides().then(setRideList);
+  }, []);
+
   return (
     <div>
       <div className="flex flex-row justify-between">
@@ -53,7 +41,7 @@ export default function List() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {testData.map((ride) => (
+          {rideList.map((ride) => (
             <TableRow key={ride.id}>
               <TableCell>
                 <img
