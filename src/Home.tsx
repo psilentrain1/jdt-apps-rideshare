@@ -12,7 +12,6 @@ import LyftLogo from "./assets/Lyft-Logo.wine.png";
 import { usdFormatter } from "./utils/data.utils";
 import { useGetDashData } from "./hooks/useGetDashData";
 
-// TODO: Fix display of floating point numbers
 export default function Home() {
   const [selectedMonth, setSelectedMonth] = useState<number | null>(null);
   const { monthList, totals } = useGetDashData();

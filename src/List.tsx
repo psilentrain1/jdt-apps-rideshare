@@ -14,7 +14,6 @@ import UberLogo from "./assets/uber-logo-white-transparent.png";
 import LyftLogo from "./assets/Lyft-Logo.wine.png";
 import type { Ride } from "./utils/types";
 
-// TODO: Format currency correctly
 // TODO: Fix table header style
 // TODO: Add ability to edit and delete rides
 // TODO: Format dates

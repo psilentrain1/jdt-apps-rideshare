@@ -44,14 +44,12 @@ function createDB() {
   db.prepare(rideTableQuery).run();
 }
 
-// TODO: Convert start_time back to date object
 export function getAllRides(): Ride[] {
   const stmt = db.prepare("SELECT * FROM ride WHERE deleted_at IS NULL;");
 
   return stmt.all() as Ride[];
 }
 
-// TODO: Convert start_time back to date object
 export function getOneRide(id: number): Ride {
   const stmt = db.prepare("SELECT * FROM ride WHERE id = ?;");
 
