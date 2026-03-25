@@ -9,7 +9,7 @@ import {
 } from "./components/ui/select";
 import UberLogo from "./assets/uber-logo-white-transparent.png";
 import LyftLogo from "./assets/Lyft-Logo.wine.png";
-// import type { TotalData, Month } from "./utils/types";
+import { usdFormatter } from "./utils/data.utils";
 import { useGetDashData } from "./hooks/useGetDashData";
 
 // TODO: Fix display of floating point numbers
@@ -40,25 +40,25 @@ export default function Home() {
           <div className="flex flex-col">
             <span className="text-slate-400 text-center text-3xl">Total:</span>
             <span className="font-bold text-6xl text-center">
-              ${selectedMonth !== null ? totals[selectedMonth].total : "-.--"}
+              {selectedMonth !== null
+                ? usdFormatter.format(totals[selectedMonth].total)
+                : "$-.--"}
             </span>
           </div>
           <div className="flex flex-col">
             <span className="text-slate-400 text-center text-xl">Fares:</span>
             <span className="text-4xl text-center">
-              $
               {selectedMonth !== null
-                ? totals[selectedMonth].totalFare
-                : "-.--"}
+                ? usdFormatter.format(totals[selectedMonth].totalFare)
+                : "$-.--"}
             </span>
           </div>
           <div className="flex flex-col">
             <span className="text-slate-400 text-center text-xl">Tips:</span>
             <span className="text-4xl text-center">
-              $
               {selectedMonth !== null
-                ? totals[selectedMonth].totalTips
-                : "-.--"}
+                ? usdFormatter.format(totals[selectedMonth].totalTips)
+                : "$-.--"}
             </span>
           </div>
         </section>
@@ -73,10 +73,9 @@ export default function Home() {
                   Fares:
                 </span>
                 <span className="text-4xl text-center">
-                  $
                   {selectedMonth !== null
-                    ? totals[selectedMonth].uberFare
-                    : "-.--"}
+                    ? usdFormatter.format(totals[selectedMonth].uberFare)
+                    : "$-.--"}
                 </span>
               </div>
               <div className="flex flex-col">
@@ -84,10 +83,9 @@ export default function Home() {
                   Tips:
                 </span>
                 <span className="text-4xl text-center">
-                  $
                   {selectedMonth !== null
-                    ? totals[selectedMonth].uberTips
-                    : "-.--"}
+                    ? usdFormatter.format(totals[selectedMonth].uberTips)
+                    : "$-.--"}
                 </span>
               </div>
             </div>
@@ -102,10 +100,9 @@ export default function Home() {
                   Fares:
                 </span>
                 <span className="text-4xl text-center">
-                  $
                   {selectedMonth !== null
-                    ? totals[selectedMonth].lyftFare
-                    : "-.--"}
+                    ? usdFormatter.format(totals[selectedMonth].lyftFare)
+                    : "$-.--"}
                 </span>
               </div>
               <div className="flex flex-col">
@@ -113,10 +110,9 @@ export default function Home() {
                   Tips:
                 </span>
                 <span className="text-4xl text-center">
-                  $
                   {selectedMonth !== null
-                    ? totals[selectedMonth].lyftTips
-                    : "-.--"}
+                    ? usdFormatter.format(totals[selectedMonth].lyftTips)
+                    : "$-.--"}
                 </span>
               </div>
             </div>

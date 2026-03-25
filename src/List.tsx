@@ -9,6 +9,7 @@ import {
   TableRow,
 } from "./components/ui/table";
 import { getAllRides } from "./utils/db.utils";
+import { usdFormatter } from "./utils/data.utils";
 import UberLogo from "./assets/uber-logo-white-transparent.png";
 import LyftLogo from "./assets/Lyft-Logo.wine.png";
 import type { Ride } from "./utils/types";
@@ -51,9 +52,9 @@ export default function List() {
                 />
               </TableCell>
               <TableCell>{ride.start_time}</TableCell>
-              <TableCell>{ride.fare}</TableCell>
-              <TableCell>{ride.fee}</TableCell>
-              <TableCell>{ride.tip}</TableCell>
+              <TableCell>{usdFormatter.format(ride.fare)}</TableCell>
+              <TableCell>{usdFormatter.format(ride.fee)}</TableCell>
+              <TableCell>{usdFormatter.format(ride.tip)}</TableCell>
               <TableCell>{ride.account}</TableCell>
             </TableRow>
           ))}
