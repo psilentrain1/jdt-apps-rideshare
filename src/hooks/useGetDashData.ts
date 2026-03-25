@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { getAllRides } from "../utils/db.utils";
-import { getMonthLabel } from "../utils/data.utils";
 import type { Month, MonthlyTotals, Ride } from "../utils/types";
 
 export function useGetDashData() {
@@ -9,6 +8,17 @@ export function useGetDashData() {
   useEffect(() => {
     getAllRides().then(setRideList);
   }, []);
+
+  function getMonthLabel(month: number): string {
+    const monthNumber = Number(String(month).substring(4, 6)) - 1;
+    const yearString = String(month).substring(0, 4);
+    const date = new Date();
+    date.setMonth(monthNumber);
+
+    const monthName = date.toLocaleString("en-US", { month: "long" });
+
+    return `${monthName} ${yearString}`;
+  }
 
   const totalList: MonthlyTotals = {};
   const monthList: Month[] = [];
