@@ -17,8 +17,8 @@ export interface Ride {
   fare: number;
   fee: number;
   tip: number;
-  modified_at?: Date;
-  deleted_at?: Date;
+  modified_at?: string;
+  deleted_at?: string;
 }
 
 export interface Month {
