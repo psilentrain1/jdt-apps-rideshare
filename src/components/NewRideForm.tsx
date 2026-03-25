@@ -126,7 +126,7 @@ export default function NewRideForm() {
                 </FieldLabel>
                 <Popover>
                   <TriggerWithSlot asChild>
-                    <Button variant="outline">
+                    <Button variant="secondary">
                       {date.toLocaleDateString("en-US", {
                         hour: "numeric",
                         minute: "numeric",
