@@ -10,13 +10,12 @@ import {
 } from "./components/ui/table";
 import { Button } from "./components/ui/button";
 import { getAllRides } from "./utils/db.utils";
-import { usdFormatter } from "./utils/data.utils";
+import { usdFormatter, dateFormatter } from "./utils/data.utils";
 import UberLogo from "./assets/uber-logo-white-transparent.png";
 import LyftLogo from "./assets/Lyft-Logo.wine.png";
 import type { Ride, ListSort, ListDirection, ListColumn } from "./utils/types";
 
 // TODO: Add ability to edit and delete rides
-// TODO: Format dates
 export default function List() {
   const [rideList, setRideList] = useState<Ride[]>([]);
   const [listSort, setListSort] = useState<ListSort>({
@@ -183,7 +182,7 @@ export default function List() {
                   src={ride.service == "uber" ? UberLogo : LyftLogo}
                 />
               </TableCell>
-              <TableCell>{ride.start_time}</TableCell>
+              <TableCell>{dateFormatter(ride.start_time)}</TableCell>
               <TableCell>{usdFormatter.format(ride.fare)}</TableCell>
               <TableCell>{usdFormatter.format(ride.fee)}</TableCell>
               <TableCell>{usdFormatter.format(ride.tip)}</TableCell>
