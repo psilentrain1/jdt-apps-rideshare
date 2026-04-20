@@ -29,3 +29,17 @@ export interface Month {
 export interface MonthlyTotals {
   [key: string]: TotalData;
 }
+
+export type ListDirection = "asc" | "des";
+export type ListColumn =
+  | "service"
+  | "start_time"
+  | "fare"
+  | "fee"
+  | "tip"
+  | "account";
+
+export interface ListSort {
+  column: ListColumn;
+  direction: ListDirection;
+}
