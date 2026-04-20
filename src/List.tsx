@@ -15,7 +15,6 @@ import UberLogo from "./assets/uber-logo-white-transparent.png";
 import LyftLogo from "./assets/Lyft-Logo.wine.png";
 import type { Ride, ListSort, ListDirection, ListColumn } from "./utils/types";
 
-// TODO: Fix table header style
 // TODO: Add ability to edit and delete rides
 // TODO: Format dates
 export default function List() {
@@ -53,6 +52,9 @@ export default function List() {
     setListSort({ column: column, direction: direction });
   };
 
+  const headerButtonClass = "text-slate-50";
+  const headerButtonClassSelected = "text-slate-50 font-extrabold";
+
   return (
     <div>
       <div className="flex flex-row justify-between">
@@ -63,33 +65,111 @@ export default function List() {
         <TableHeader>
           <TableRow>
             <TableHead>
-              <Button variant="ghost" onClick={() => handleSort("service")}>
+              <Button
+                className={
+                  listSort.column === "service"
+                    ? headerButtonClassSelected
+                    : headerButtonClass
+                }
+                variant="ghost"
+                onClick={() => handleSort("service")}
+              >
                 Service
+                {listSort.column === "service"
+                  ? listSort.direction === "asc"
+                    ? " ↓"
+                    : " ↑"
+                  : ""}
               </Button>
             </TableHead>
             <TableHead>
-              <Button variant="ghost" onClick={() => handleSort("start_time")}>
+              <Button
+                className={
+                  listSort.column === "start_time"
+                    ? headerButtonClassSelected
+                    : headerButtonClass
+                }
+                variant="ghost"
+                onClick={() => handleSort("start_time")}
+              >
                 Date
+                {listSort.column === "start_time"
+                  ? listSort.direction === "asc"
+                    ? " ↓"
+                    : " ↑"
+                  : ""}
               </Button>
             </TableHead>
             <TableHead>
-              <Button variant="ghost" onClick={() => handleSort("fare")}>
+              <Button
+                className={
+                  listSort.column === "fare"
+                    ? headerButtonClassSelected
+                    : headerButtonClass
+                }
+                variant="ghost"
+                onClick={() => handleSort("fare")}
+              >
                 Fare
+                {listSort.column === "fare"
+                  ? listSort.direction === "asc"
+                    ? " ↓"
+                    : " ↑"
+                  : ""}
               </Button>
             </TableHead>
             <TableHead>
-              <Button variant="ghost" onClick={() => handleSort("fee")}>
+              <Button
+                className={
+                  listSort.column === "fee"
+                    ? headerButtonClassSelected
+                    : headerButtonClass
+                }
+                variant="ghost"
+                onClick={() => handleSort("fee")}
+              >
                 Fee
+                {listSort.column === "fee"
+                  ? listSort.direction === "asc"
+                    ? " ↓"
+                    : " ↑"
+                  : ""}
               </Button>
             </TableHead>
             <TableHead>
-              <Button variant="ghost" onClick={() => handleSort("tip")}>
+              <Button
+                className={
+                  listSort.column === "tip"
+                    ? headerButtonClassSelected
+                    : headerButtonClass
+                }
+                variant="ghost"
+                onClick={() => handleSort("tip")}
+              >
                 Tip
+                {listSort.column === "tip"
+                  ? listSort.direction === "asc"
+                    ? " ↓"
+                    : " ↑"
+                  : ""}
               </Button>
             </TableHead>
             <TableHead>
-              <Button variant="ghost" onClick={() => handleSort("account")}>
+              <Button
+                className={
+                  listSort.column === "account"
+                    ? headerButtonClassSelected
+                    : headerButtonClass
+                }
+                variant="ghost"
+                onClick={() => handleSort("account")}
+              >
                 Account
+                {listSort.column === "account"
+                  ? listSort.direction === "asc"
+                    ? " ↓"
+                    : " ↑"
+                  : ""}
               </Button>
             </TableHead>
           </TableRow>
