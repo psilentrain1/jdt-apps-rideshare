@@ -29,6 +29,7 @@ const formSchema = z.object({
 type FormValues = z.infer<typeof formSchema>;
 
 // TODO: Style form
+// TODO: Reset dropdowns on successful submit
 export default function NewRideForm() {
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema) as Resolver<FormValues>,
