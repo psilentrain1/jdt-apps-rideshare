@@ -45,6 +45,7 @@ export function Login() {
 
     if (data) {
       toast.success("Logged In!");
+      localStorage.setItem("token", data.token);
       navigate("/dashboard");
     }
   };
@@ -113,7 +114,8 @@ export function SignUp() {
 
     if (data) {
       toast.success("Signed Up.");
-      navigate("/dashboard");
+      authClient.signOut();
+      navigate("/login");
     }
   };
   return (
