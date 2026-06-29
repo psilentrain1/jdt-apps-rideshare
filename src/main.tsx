@@ -5,30 +5,49 @@ import { RouterProvider } from "react-router/dom";
 import "./index.css";
 import App from "./App.tsx";
 import Home from "./Home.tsx";
+import Dashboard from "./Dashboard.tsx";
 import List from "./List.tsx";
 import Calendar from "./Calendar.tsx";
 import Add from "./Add.tsx";
+import { Login, SignUp } from "./Auth.tsx";
+import ProtectedRoute from "./ProtectedRoute.tsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    Component: App,
+    Component: Home,
+  },
+  {
+    path: "/login",
+    Component: Login,
+  },
+  {
+    path: "/signup",
+    Component: SignUp,
+  },
+  {
+    Component: ProtectedRoute,
     children: [
       {
-        index: true,
-        Component: Home,
-      },
-      {
-        path: "list",
-        Component: List,
-      },
-      {
-        path: "calendar",
-        Component: Calendar,
-      },
-      {
-        path: "add",
-        Component: Add,
+        Component: App,
+        children: [
+          {
+            path: "/dashboard",
+            Component: Dashboard,
+          },
+          {
+            path: "list",
+            Component: List,
+          },
+          {
+            path: "calendar",
+            Component: Calendar,
+          },
+          {
+            path: "add",
+            Component: Add,
+          },
+        ],
       },
     ],
   },
