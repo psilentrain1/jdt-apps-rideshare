@@ -11,7 +11,7 @@ export default function Header() {
         <nav>
           <ul className="flex flex-row gap-4">
             <li>
-              <NavLink to={"/"}>Home</NavLink>
+              <NavLink to={"/dashboard"}>Home</NavLink>
             </li>
             <li>
               <NavLink to={"/list"}>List</NavLink>
@@ -23,7 +23,12 @@ export default function Header() {
               <NavLink to={"/add"}>Add</NavLink>
             </li>
             <li>
-              <span onClick={() => authClient.signOut()}>Logout</span>
+              <span
+                className="cursor-pointer"
+                onClick={() => authClient.signOut()}
+              >
+                Logout
+              </span>
             </li>
           </ul>
         </nav>
