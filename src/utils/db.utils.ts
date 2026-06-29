@@ -3,8 +3,29 @@ import type { Ride } from "./types";
 
 const API_ENDPOINT: string = import.meta.env.VITE_API_ENDPOINT;
 
+async function apiFetch(path: string, options: RequestInit = {}) {
+  const token = localStorage.getItem("token");
+
+  const res = await fetch(path, {
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      ...options.headers,
+    },
+  });
+
+  if (res.status === 401) {
+    toast.error("Login expired.");
+    localStorage.removeItem("token");
+    window.location.href = "/login";
+  }
+
+  return res;
+}
+
 export async function getAllRides(): Promise<Ride[]> {
-  const response = await fetch(`${API_ENDPOINT}/rides`, {
+  const response = await apiFetch(`${API_ENDPOINT}/rides`, {
     method: "GET",
     headers: { "Content-Type": "application/json" },
   });
@@ -16,7 +37,7 @@ export async function getAllRides(): Promise<Ride[]> {
 }
 
 export async function getOneRide(id: number): Promise<Ride> {
-  const response = await fetch(`${API_ENDPOINT}/rides/get/${id}`, {
+  const response = await apiFetch(`${API_ENDPOINT}/rides/get/${id}`, {
     method: "GET",
     headers: { "Content-Type": "application/json" },
   });
@@ -30,7 +51,7 @@ export async function getOneRide(id: number): Promise<Ride> {
 export async function addRide(ride: Ride): Promise<boolean> {
   console.log("Adding ride");
   try {
-    const response = await fetch(`${API_ENDPOINT}/rides/add`, {
+    const response = await apiFetch(`${API_ENDPOINT}/rides/add`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(ride),
@@ -52,7 +73,7 @@ export async function addRide(ride: Ride): Promise<boolean> {
 }
 
 export async function updateRide(ride: Ride): Promise<boolean> {
-  const response = await fetch(`${API_ENDPOINT}/rides/update`, {
+  const response = await apiFetch(`${API_ENDPOINT}/rides/update`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(ride),
@@ -67,7 +88,7 @@ export async function updateRide(ride: Ride): Promise<boolean> {
 }
 
 export async function deleteRide(id: number): Promise<boolean> {
-  const response = await fetch(`${API_ENDPOINT}/rides/delete/${id}`, {
+  const response = await apiFetch(`${API_ENDPOINT}/rides/delete/${id}`, {
     method: "DELETE",
     headers: { "Content-Type": "application/json" },
   });
