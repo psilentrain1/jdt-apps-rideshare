@@ -1,4 +1,5 @@
 import { NavLink } from "react-router";
+import { authClient } from "../lib/auth-client";
 import { Toaster } from "react-hot-toast";
 
 export default function Header() {
@@ -20,6 +21,9 @@ export default function Header() {
             </li>
             <li>
               <NavLink to={"/add"}>Add</NavLink>
+            </li>
+            <li>
+              <span onClick={() => authClient.signOut()}>Logout</span>
             </li>
           </ul>
         </nav>
