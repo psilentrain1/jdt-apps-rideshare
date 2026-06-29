@@ -1,9 +1,10 @@
-import { Navigate } from "react-router";
+import { Navigate, Outlet } from "react-router";
 import { authClient } from "./lib/auth-client";
 
-export default function Home() {
+export default function ProtectedRoute() {
   const { data: session, isPending } = authClient.useSession();
 
   if (isPending) return <p>Loading...</p>;
-  return session ? <Navigate to="/dashboard" /> : <Navigate to="/login" />;
+
+  return session ? <Outlet /> : <Navigate to="/login" replace />;
 }
