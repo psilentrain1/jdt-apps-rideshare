@@ -4,7 +4,7 @@ import { authClient } from "./lib/auth-client";
 export default function ProtectedRoute() {
   const { data: session, isPending } = authClient.useSession();
 
-  if (isPending) return <p>Loading...</p>;
+  if (isPending) return <></>;
 
   return session ? <Outlet /> : <Navigate to="/login" replace />;
 }

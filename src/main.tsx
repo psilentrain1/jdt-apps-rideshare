@@ -9,7 +9,7 @@ import Dashboard from "./Dashboard.tsx";
 import List from "./List.tsx";
 import Calendar from "./Calendar.tsx";
 import Add from "./Add.tsx";
-import Login from "./Login.tsx";
+import { Login, SignUp } from "./Auth.tsx";
 import ProtectedRoute from "./ProtectedRoute.tsx";
 
 const router = createBrowserRouter([
@@ -20,6 +20,10 @@ const router = createBrowserRouter([
   {
     path: "/login",
     Component: Login,
+  },
+  {
+    path: "/signup",
+    Component: SignUp,
   },
   {
     Component: ProtectedRoute,
