@@ -48,6 +48,7 @@ export function Login() {
       console.log(`Login successful: ${data.user.email}`);
       toast.success("Logged In!");
       localStorage.setItem("token", data.token);
+      await authClient.getSession();
       navigate("/dashboard");
     }
   };
