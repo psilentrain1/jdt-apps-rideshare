@@ -39,11 +39,13 @@ export function Login() {
     });
 
     if (error && error.message) {
+      console.error(`Login failed: ${error.message}`);
       toast.error(error.message);
       reset({ email: formData.email });
     }
 
     if (data) {
+      console.log(`Login successful: ${data.user.email}`);
       toast.success("Logged In!");
       localStorage.setItem("token", data.token);
       navigate("/dashboard");
